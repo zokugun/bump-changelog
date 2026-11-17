@@ -1,0 +1,74 @@
+options:
+  new: 0.1.1
+  old: 0.1.0
+
+/input/.bumpchangelogrc.yml: |
+  heading:
+    style: atx
+    separator:
+      top: none
+      bottom: none
+  release:
+    template: '[v{version}] | {date:YYYY-MM-DD}'
+  unreleased:
+    template: '[Unreleased]'
+    action: retain
+  reference:
+    location:
+      by: heading
+      position: after
+      separator:
+        top: none
+        bottom: none
+    sort:
+      mode: alpha-version
+      direction:
+        alpha: asc
+        version: desc
+    release:
+        name: v{version}
+        link: https://github.com/zokugun/package/releases/tag/v{version}
+    unreleased:
+      name: unreleased
+      link: https://github.com/zokugun/package/compare/v{version}...HEAD
+/input/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+  ## [Unreleased]
+  [unreleased]: https://github.com/zokugun/package/compare/v0.1.0...HEAD
+  ### Fixed
+
+  - pass `npm_new_version` and `npm_old_version` env variables to npm scripts
+  ## [v0.1.0] | 2026-11-13
+  [v0.1.0]: https://github.com/zokugun/package/releases/tag/v0.1.0
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html
+
+/output/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+  ## [Unreleased]
+  [unreleased]: https://github.com/zokugun/package/compare/v0.1.1...HEAD
+  ## [v0.1.1] | #[[YYYY-MM-DD]]
+  [v0.1.1]: https://github.com/zokugun/package/releases/tag/v0.1.1
+  ### Fixed
+
+  - pass `npm_new_version` and `npm_old_version` env variables to npm scripts
+  ## [v0.1.0] | 2026-11-13
+  [v0.1.0]: https://github.com/zokugun/package/releases/tag/v0.1.0
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html

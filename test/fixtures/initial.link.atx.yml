@@ -1,0 +1,52 @@
+options:
+  new: 0.1.0
+  old: 0.0.0
+
+/input/.bumpchangelogrc.yml: |
+  heading:
+    style: atx
+  release:
+    template: '[v{version}] | {date:YYYY-MM-DD}'
+  unreleased:
+    template: '[Unreleased]'
+    action: remove
+  reference:
+    release:
+        name: v{version}
+        link: https://github.com/zokugun/package/releases/tag/v{version}
+    unreleased:
+      link: https://github.com/zokugun/package/compare/v{version}...HEAD
+/input/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+
+  ## [Unreleased]
+
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html
+  [unreleased]: https://github.com/zokugun/package/compare/v0.0.0...HEAD
+
+/output/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+
+  ## [v0.1.0] | #[[YYYY-MM-DD]]
+
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html
+  [unreleased]: https://github.com/zokugun/package/compare/v0.1.0...HEAD
+  [v0.1.0]: https://github.com/zokugun/package/releases/tag/v0.1.0

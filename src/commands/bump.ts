@@ -1,5 +1,5 @@
-import type { Tokens } from './utils/render-template.js';
-import type { Options, References } from './types.js';
+import type { Tokens } from '#/utils/render-template.js';
+import type { Options, References } from '#/types.js';
 
 import { logger, unwrapFatal } from '@zokugun/cli-utils';
 import fse from '@zokugun/fs-extra-plus/async';
@@ -7,29 +7,30 @@ import { isNonBlankString } from '@zokugun/is-it-type';
 import { detectEOL, toEOL, toLines } from '@zokugun/text-line-utils';
 import process from 'node:process';
 
-import { addReference } from './utils/add-reference.js';
-import { findFootnoteReferences } from './utils/find-footnote-references.js';
-import { findReferencesAfter } from './utils/find-references-after.js';
-import { findReferencesBefore } from './utils/find-references-before.js';
-import { findSectionReferences } from './utils/find-section-references.js';
-import { loadConfig } from './utils/load-config.js';
-import { removeUnreleasedReference } from './utils/remove-unreleased-reference.js';
-import { renderTemplate } from './utils/render-template.js';
-import { replaceUnreleasedReference } from './utils/replace-unreleased-reference.js';
+import { addReference } from '#/utils/add-reference.js';
+import { findFootnoteReferences } from '#/utils/find-footnote-references.js';
+import { findReferencesAfter } from '#/utils/find-references-after.js';
+import { findReferencesBefore } from '#/utils/find-references-before.js';
+import { findSectionReferences } from '#/utils/find-section-references.js';
+import { findUnreleasedSection } from '#/utils/find-unreleased-section.js';
+import { loadConfig } from '#/utils/load-config.js';
+import { removeUnreleasedReference } from '#/utils/remove-unreleased-reference.js';
+import { renderTemplate } from '#/utils/render-template.js';
+import { replaceUnreleasedReference } from '#/utils/replace-unreleased-reference.js';
 
-export async function run(options: Options): Promise<void> {
+export async function bump(options: Options): Promise<void> {
 	logger.beginTimer();
 
 	const newVersion = isNonBlankString(options.new) ? options.new : process.env.npm_new_version;
 
 	if(!isNonBlankString<string>(newVersion)) {
-		logger.fatal('The new version is missing.')
+		logger.fatal('The new version is missing.');
 	}
 
 	const oldVersion = isNonBlankString(options.old) ? options.old : process.env.npm_old_version;
 
 	if(!isNonBlankString<string>(oldVersion)) {
-		logger.fatal('The old version is missing.')
+		logger.fatal('The old version is missing.');
 	}
 
 	const root = process.cwd();
@@ -41,30 +42,13 @@ export async function run(options: Options): Promise<void> {
 	const release = unwrapFatal(await renderTemplate(config.release.template, tokens, root));
 	const eol = detectEOL(changelog, { mode: 'majority' });
 	const lines = toLines(changelog);
-	const isATX = config.heading.style == 'atx'
-	const isRemovingUnreleased = config.unreleased.action === 'remove'
+	const isATX = config.heading.style == 'atx';
+	const isRemovingUnreleased = config.unreleased.action === 'remove';
 
-	let unreleasedIndex: number | undefined
-
-	if(isATX) {
-		const heading = `## ${unreleased}`;
-
-		for(const [index, line] of lines.entries()) {
-			if(line.startsWith(heading)) {
-				unreleasedIndex = index
-			}
-		}
-	}
-	else {
-		for(const [index, line] of lines.entries()) {
-			if(line.startsWith(unreleased) && lines[index + 1].startsWith('---')) {
-				unreleasedIndex = index
-			}
-		}
-	}
+	let unreleasedIndex = findUnreleasedSection(unreleased, isATX, lines);
 
 	if(!unreleasedIndex) {
-		logger.fatal('Cannot find the unreleased section')
+		logger.fatal('Cannot find the unreleased section');
 	}
 
 	let references: References | undefined;

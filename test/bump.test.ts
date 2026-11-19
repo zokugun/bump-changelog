@@ -1,14 +1,16 @@
+import type { Options } from '#/types.js';
+
 import { buildCliFileTests } from '@zokugun/vitest-toolkit';
 import dayjs from 'dayjs';
 
-import { Options } from '#/types.js';
-import { run } from './rewires/run.js';
+import { bump } from './rewires/bump.js';
 
 const CAPTURE_REGEX = /#\[\[([^\]]+)\]\]/g;
 
 buildCliFileTests(
-	(manifest) => run(manifest.options as Options),
+	(manifest) => bump(manifest.options as Options),
 	{
+		fixture: 'bump',
 		transformFile: (type, path, content) => {
 			if(type !== 'output') {
 				return content;

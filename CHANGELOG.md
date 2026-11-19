@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
 
+[Unreleased]
+------------
+
+### Changed
+
+- move the bump action to the `bump` command
+
+### Added
+
+- add `unrelease` command to add the **Unreleased** section
+
 [v0.1.0] | 2026-11-18
 ---------------------
 

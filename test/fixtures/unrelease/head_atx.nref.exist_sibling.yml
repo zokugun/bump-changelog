@@ -1,0 +1,62 @@
+message: pass `npm_new_version` and `npm_old_version` env variables to npm scripts
+options:
+  fixed: true
+
+/input/.bumpchangelogrc.yml: |
+  heading:
+    style: atx
+/input/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+
+  ## Unreleased
+
+  ### Added
+
+  - add new feature
+
+  ## 0.1.0 - 2026-11-13
+
+  ### Fixed
+
+  - hello world!
+
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html
+
+/output/CHANGELOG.md: |
+  # Changelog
+
+  All notable changes to this project will be documented in this file.
+
+  The format is based on [Keep a Changelog][keepachangelog], and this project adheres to [Semantic Versioning][semver].
+
+  ## Unreleased
+
+  ### Fixed
+
+  - pass `npm_new_version` and `npm_old_version` env variables to npm scripts
+
+  ### Added
+
+  - add new feature
+
+  ## 0.1.0 - 2026-11-13
+
+  ### Fixed
+
+  - hello world!
+
+  ### Added
+
+  - initial release
+
+  [keepachangelog]: https://keepachangelog.com/en/2.0.0/
+  [semver]: https://semver.org/spec/v2.0.0.html

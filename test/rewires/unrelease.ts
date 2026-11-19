@@ -2,8 +2,8 @@ import { mockCliFileTests, unmockCliFileTests } from '@zokugun/vitest-toolkit'
 
 mockCliFileTests();
 
-const { run } = await import('#/run.js');
+const { unrelease } = await import('#/commands/unrelease.js');
 
 unmockCliFileTests();
 
-export { run };
+export { unrelease };

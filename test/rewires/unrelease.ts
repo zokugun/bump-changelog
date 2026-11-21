@@ -1,9 +1,9 @@
-import { mockCliFileTests, unmockCliFileTests } from '@zokugun/vitest-toolkit'
+import { mockForInMemoryFiles, unmockForInMemoryFiles } from '@zokugun/vitest-toolkit'
 
-mockCliFileTests();
+mockForInMemoryFiles();
 
 const { unrelease } = await import('#/commands/unrelease.js');
 
-unmockCliFileTests();
+unmockForInMemoryFiles();
 
 export { unrelease };
